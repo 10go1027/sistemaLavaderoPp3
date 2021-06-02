@@ -10,9 +10,16 @@
                         $_SESSION['id_mov'] = hash("md5", (rand(-9999999999999999, 9999999999999999)));
                     }
 ?>
-<h3>Sistema de carga de ropa sucia:</h3>
-<form  action="CargarRopaSucia.php" method="get">
-Salas <select id="sala" name="sala">
+<div class="container">
+<div class="form-group">
+<label for="tituloCargaRopaSucia" class="control-label col-md-10"><h3>Sistema de carga de ropa sucia:</h3></label>
+</div>
+<form class="form-horizontal" action="CargarRopaSucia.php" method="get">
+<div class="form-group">
+<label for="Salas" class="control-label col-md-4">Salas</label>
+<div class="col-md-10">
+<select id="sala" class="form-control" name="sala">
+
 <?php
                     $salaI = SalasDAO::getAllSalas();
                     foreach ($salaI as $aux){
@@ -20,7 +27,12 @@ Salas <select id="sala" name="sala">
                     }
 ?>
 </select>
-<br>Tipo de prenda <select id="tipoprenda" name="tipoprenda">
+</div>
+</div>
+<div class="form-group">
+<label for="Tipo de prenda" class="control-label col-md-4">Tipo de prenda</label>
+<div class="col-md-10">
+<select id="tipoprenda" class="form-control" name="tipoprenda">
 
 <?php
                     $tipoprendas = PrendaDAO::getHTMLAllPrendas();
@@ -29,10 +41,25 @@ Salas <select id="sala" name="sala">
                     }
 ?>
 </select>
-<br>Cantidad <input id="cantidad" type="number" min="0" name="cantidad">
-<input id="agregar" type="submit" value="Agregar">
+</div>
+</div>
+<div class="form-group">
+<label for="Cantidad" class="control-label col-md-4">Cantidad</label>
+<div class="col-md-10">
+<input id="cantidad" class="form-control" type="number" min="0"  name="cantidad">
+</div>
+</div>
+
+<div class="col-md-2 col.md.offset-2">
+<input id="agregar" class="btn btn-primary btn-lg" type="submit" value="Agregar">
+</div>
 </form>
+<div class="form-group">
+<div class="col-md-2 col.md.offset-2">
 <a href="index.php">Atrás</a>
+</div>
+</div>
+</div>
 <?php
                 if(isset($_GET['prenda'])){
                     $prenda = preg_split('/[\d]{1,}p/', $_GET['prenda']);
@@ -54,24 +81,27 @@ Salas <select id="sala" name="sala">
                     
                 foreach($salaI as $aux){
 ?>
+<div class="container">
 <form id="cargarRopaSucia" action="CargarRopaSucia.php" method="get">
 <?php
-                    echo "<table border='1px'><tr><th colspan='3'>".$aux->getM_descripcion()."</th></tr>";
+                    echo "<table class='table table-striped table-bordered table-hover' border='1px'><tr><th colspan='3'>".$aux->getM_descripcion()."</th></tr>";
                     $aux = SalasDAO::getSala($aux->getM_id(), $_SESSION['id_mov']);
                     if($aux->getM_prendas() != null){
                         foreach ($aux->getM_prendas() as $prenda){
-                            echo "<tr><td><img src='".$prenda->getM_icono()."' style='width: 25px'>".$prenda->getM_descripcion()."</td><td>".$prenda->getM_cantidad()."</td><td><button id='borrar' name='prenda' type='submit' value='".$aux->getM_id()."p".$prenda->getM_codigo()."'>Borrar</button></tr>";
+                            echo "<tr><td><img src='".$prenda->getM_icono()."' style='width: 25px'>".$prenda->getM_descripcion()."</td><td>".$prenda->getM_cantidad()."</td><td><button id='borrar' class='btn btn-warning btn-sm btn-block' name='prenda' type='submit' value='".$aux->getM_id()."p".$prenda->getM_codigo()."'>Borrar</button></tr>";
                         }
                     }
                     echo "</table>";
 ?>
 </form>
+</div>
 <?php
                 }
 ?>
-<div id="tablaTotal">
+<div class="container">
+<div class="table table-striped table-hover" id="tablaTotal">
 <table  border='1px'>
-<tr><th colspan="2">Total</th></tr>
+<tr class="info"><th colspan="2">Total</th></tr>
 <?php
                 $total = 0;
                 $allprendasstr = PrendaDAO::getHTMLAllPrendas();
@@ -86,10 +116,15 @@ Salas <select id="sala" name="sala">
                // echo "<tr><td style='background-color: red'>Total de prendas</td><td style='background-color: red'>".$total."</td></tr>";
 ?>
 </table>
+</div>
+<div class="container">
 <form action="ProcesarRopaSucia.php" method="POST">
-<input id="procesar" type="submit" value="Procesar">
+<input id="procesar" class="btn btn-success btn-lg" type="submit" value="Procesar">
 </form>
 </div>
+</div>
+
+
 <?php
             }
         }

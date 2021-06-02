@@ -86,27 +86,3 @@ button {
 #cantidad {
     background-color: rgb(220, 236, 246);
 }
-
-#cargarRopaSucia {
-    display: none;
-}
-
-#tablaTotal {
-    background-color: teal;
-    padding: 5px;
-    margin: 5px;
-}
-
-#agregar {
-    background-color: rgb(197, 196, 191);
-    cursor: pointer;
-}
-
-#procesar {
-    background-color: rgb(197, 196, 191);
-    cursor: pointer;
-}
-
-#borrar {
-    background-color: rgb(197, 196, 191);
-}
