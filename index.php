@@ -21,9 +21,7 @@
                 <div class="form-group" id="contrasena-group" >
                     <input type="password" name="contrasenia" placeholder="contraseña">
                 </div> 
-                <div class="submit">
                 <button type="submit" class="btn btn-primary" value="Ingresar"><i class="fas fa-sign-in-alt"></i> Ingresar</button>
-                </div>
                 <div class="col-12 forgot">
                 <a href="https://www.sistemalavaderopp3.ml">¿Olvidaste la contraseña?</a>
                 </div> 
