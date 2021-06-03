@@ -91,7 +91,7 @@
                     $aux = SalasDAO::getSala($aux->getM_id(), $_SESSION['id_mov']);
                     if($aux->getM_prendas() != null){
                         foreach ($aux->getM_prendas() as $prenda){
-                            echo "<tr><td><img src='".$prenda->getM_icono()."' style='width: 25px'>".$prenda->getM_descripcion()."</td><td>".$prenda->getM_cantidad()."</td><td><button id='borrar' class='btn btn-warning btn-sm btn-block' name='prenda' type='submit' value='".$aux->getM_id()."p".$prenda->getM_codigo()."'>Borrar</button></tr>";
+                            echo "<tr><td><img src='".$prenda->getM_icono()."' style='width: 75px'>".$prenda->getM_descripcion()."</td><td>".$prenda->getM_cantidad()."</td><td><button id='borrar' class='btn btn-warning btn-sm btn-block' name='prenda' type='submit' value='".$aux->getM_id()."p".$prenda->getM_codigo()."'>Borrar</button></tr>";
                         }
                     }
                     echo "</table>";
