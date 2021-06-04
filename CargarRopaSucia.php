@@ -17,61 +17,62 @@
 </div>
 <div class="container">
     <form class="form-horizontal" action="CargarRopaSucia.php" method="get">
-        
-            <div class="form-group ">
-                <label for="Salas" class="control-label col-md-2">Salas</label>
-                <div class="col-md-5">
-                    <select id="sala" class="form-control" name="sala">
+        <div class="form-group ">
+            <label for="Salas" class="control-label col-md-2">Salas</label>
+            <div class="col-md-5">
+                <select id="sala" class="form-control" name="sala">
 
-<?php
-    $salaI = SalasDAO::getAllSalas();
-         foreach ($salaI as $aux){
-         echo "<option value='".$aux->getM_id()."' ".(isset($_GET['sala']) && $_GET['sala'] == $aux->getM_id()?"selected":"").">".$aux->getM_Descripcion()."</option>";
-        }
-?>
+                    <?php
+                        $salaI = SalasDAO::getAllSalas();
+                        foreach ($salaI as $aux){
+                            echo "<option value='".$aux->getM_id()."' ".(isset($_GET['sala']) && $_GET['sala'] == $aux->getM_id()?"selected":"").">".$aux->getM_Descripcion()."</option>";
+                        }
+                    ?>
                 </select>
             </div>
         </div>
-    <div class="form-group">
-    <label for="Tipo de prenda" class="control-label col-md-3">Tipo de prenda</label>
-    <div class="col-md-5">
-    <select id="tipoprenda" class="form-control" name="tipoprenda">
-
-    <?php
-                    $tipoprendas = PrendaDAO::getHTMLAllPrendas();
-                    foreach ($tipoprendas as $prenda){
+        <div class="form-group">
+            <label for="Tipo de prenda" class="control-label col-md-3">Tipo de prenda</label>
+            <div class="col-md-5">
+                <select id="tipoprenda" class="form-control" name="tipoprenda">
+                    <?php
+                        $tipoprendas = PrendaDAO::getHTMLAllPrendas();
+                        foreach ($tipoprendas as $prenda){
                         echo "<option value='$prenda[0]'>".$prenda[0]."</option>";
-                    }
-    ?>
-    </select>
-    </div>
-    </div>
-    <div class="form-group">
-    <label for="Cantidad" class="control-label col-md-2">Cantidad</label>
-    <div class="col-md-2">
-    <input id="cantidad" class="form-control" type="number" min="0"  name="cantidad">
-    </div>
-    </div>
+                        }
+                    ?>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Cantidad" class="control-label col-md-2">Cantidad</label>
+            <div class="col-md-2">
+                 <input id="cantidad" class="form-control" type="number" min="0"  name="cantidad">
+            </div>
+        </div>
 
-    <div class="col-md-2 col.md.offset-2">
-    <input id="agregar" class="btn btn-primary btn-lg" type="submit" value="Agregar">
-    </div>
+        <div class="col-md-2 col.md.offset-2">
+            <input id="agregar" class="btn btn-primary btn-lg" type="submit" value="Agregar">
+        </div>
     </form>
+</div>
+<div class="container">
     <div class="form-group">
-    <div class="col-md-2 col.md.offset-2">
-    <a href="index.php">Atrás</a>
+        <div class="col-md-2 col.md.offset-2">
+            <a href="index.php">Atrás</a>
+        </div>
     </div>
-    </div>
-    </div>
-    <?php
+</div>
+
+            <?php
                 if(isset($_GET['prenda'])){
-                    $prenda = preg_split('/[\d]{1,}p/', $_GET['prenda']);
-                    $sala = preg_split('/p[\d]{1,}/', $_GET['prenda']);
+                $prenda = preg_split('/[\d]{1,}p/', $_GET['prenda']);
+                $sala = preg_split('/p[\d]{1,}/', $_GET['prenda']);
                     
-                    $sala = $sala[0];
-                    $prenda = $prenda[1];
+                $sala = $sala[0];
+                $prenda = $prenda[1];
                     
-                    SalasDAO::removeSalaPrenda($sala, $prenda, $_SESSION['id_mov']);
+                SalasDAO::removeSalaPrenda($sala, $prenda, $_SESSION['id_mov']);
                 }
                 if(isset($_GET['tipoprenda']) && isset($_GET['cantidad']) && isset($_GET['sala'])){
                     $prenda = PrendaDAO::getPrendaFromString($_GET['tipoprenda']);
@@ -83,52 +84,46 @@
                 }
                     
                 foreach($salaI as $aux){
-    ?>
+            ?>
     <div class="container">
-    <form id="cargarRopaSucia" action="CargarRopaSucia.php" method="get">
-    <?php
-                    echo "<table class='table table-striped table-bordered table-hover' border='1px'><tr><th colspan='3'>".$aux->getM_descripcion()."</th></tr>";
-                    $aux = SalasDAO::getSala($aux->getM_id(), $_SESSION['id_mov']);
-                    if($aux->getM_prendas() != null){
-                        foreach ($aux->getM_prendas() as $prenda){
-                            echo "<tr><td><img src='".$prenda->getM_icono()."' style='width: 75px'>".$prenda->getM_descripcion()."</td><td>".$prenda->getM_cantidad()."</td><td><button id='borrar' class='btn btn-warning btn-sm btn-block' name='prenda' type='submit' value='".$aux->getM_id()."p".$prenda->getM_codigo()."'>Borrar</button></tr>";
-                        }
+        <form id="cargarRopaSucia" action="CargarRopaSucia.php" method="get">
+            <?php
+                echo "<div class='container'><table class='table table-sm table-striped table-bordered table-hover table-primary' border='1px'><thead class='thead-light'><tr><th colspan='4'>".$aux->getM_descripcion()."</th></tr>";
+                $aux = SalasDAO::getSala($aux->getM_id(), $_SESSION['id_mov']);
+                if($aux->getM_prendas() != null){
+                    foreach ($aux->getM_prendas() as $prenda){
+                     echo "<tr><td><img src='".$prenda->getM_icono()."' style='width: 80px'></td><td ><h3>".$prenda->getM_descripcion()."</h3></td><td><h3>".$prenda->getM_cantidad()."</h3></td><td><button id='borrar' class='btn btn-warning btn-sm btn-block' name='prenda' type='submit' value='".$aux->getM_id()."p".$prenda->getM_codigo()."'>Borrar</button></tr>";
                     }
-                    echo "</table>";
-    ?>
-    </form>
-</div>
+                }
+                echo "</table></div>";
+            ?>
+        </form>
+        </div>
     </div>
     <?php
                 }
     ?>
-    <div class="container">
-        <div class="table table-striped table-hover " id="tablaTotal">
-            <table  border='1px'>
-                <tr class="info"><th colspan="2">Total</th></tr>
-    <?php
-                $total = 0;
-                $allprendasstr = PrendaDAO::getHTMLAllPrendas();
-                foreach($allprendasstr as $prendastr){
-                    $objprenda = PrendaDAO::getPrendaFromString($prendastr[0]);
-                    $objprenda->setM_cantidad(PrendaDAO::getCountPrenda($objprenda->getM_codigo(), $_SESSION['id_mov']));
-                    echo "<tr><td><img src='".$objprenda->getM_icono()."' style='width: 25px'>".$objprenda->getM_descripcion()."</td><td>".$objprenda->getM_cantidad()."</td></tr>";
+    <div class="container">        
+        <?php
+            echo "<table id='tablaTotal' class='table table-sm table-striped table-bordered table-hover table-primary' border='1px'><thead class='thead-light'><tr class='info'><th colspan='3'>Total</th></tr>";
+            $total = 0;
+            $allprendasstr = PrendaDAO::getHTMLAllPrendas();
+            foreach($allprendasstr as $prendastr){
+            $objprenda = PrendaDAO::getPrendaFromString($prendastr[0]);
+            $objprenda->setM_cantidad(PrendaDAO::getCountPrenda($objprenda->getM_codigo(), $_SESSION['id_mov']));
+            echo "<tr><td><img src='".$objprenda->getM_icono()."' style='width: 80px'></td><td><h3>".$objprenda->getM_descripcion()."</h3></td><td><h3>".$objprenda->getM_cantidad()."</h3></td></tr>";
                     
-                    $total += $objprenda->getM_cantidad();
-                }
-                $_SESSION['total'] = $total;
-               //echo "<tr><td style='background-color: red'>Total de prendas</td><td style='background-color: red'>".$total."</td></tr>";
-    ?>
-            </table>
+            $total += $objprenda->getM_cantidad();
+            }
+            $_SESSION['total'] = $total;
+             echo "</table>";
+        ?>
     </div>
     <div class="container">
         <form action="ProcesarRopaSucia.php" method="POST">
             <input id="procesar" class="btn btn-success btn-lg" type="submit" value="Procesar">
         </form>
     </div>
-</div>
-
-
     <?php
             }
         }
