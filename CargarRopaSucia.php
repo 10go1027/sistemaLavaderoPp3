@@ -10,12 +10,40 @@
                         $_SESSION['id_mov'] = hash("md5", (rand(-9999999999999999, 9999999999999999)));
                     }
 ?>
-<div class="container">
-    <div class="form-group">
-        <label for="tituloCargaRopaSucia" class="control-label col-md-10"><h3>Sistema de carga de ropa sucia:</h3></label>
-     </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light ">
+  <a class="navbar-brand" href="#">
+  <?php
+  echo "Bienvenido! ".$usuDTOLogin->getM_nombre()." Al sistema";
+  ?>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="index.php">Inicio</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="CargarRopaSucia.php">Cargar ropa sucia</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="AdministrarDeposito.php">Administrar deposito</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="CrearPrenda.php">Crear nuevo tipo prenda</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="cerrar.php">Cerrar sesion</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="form-group">
+	<label for="tituloCargaRopaSucia" class="control-label col-md-10"><h3>Sistema de carga de ropa sucia:</h3></label>
 </div>
-<div class="container">
+  
     <form class="form-horizontal" action="CargarRopaSucia.php" method="get">
         <div class="form-group ">
             <label for="Salas" class="control-label col-md-2">Salas</label>
@@ -55,15 +83,11 @@
             <input id="agregar" class="btn btn-primary btn-lg" type="submit" value="Agregar">
         </div>
     </form>
-</div>
-<div class="container">
     <div class="form-group">
         <div class="col-md-2 col.md.offset-2">
             <a href="index.php">Atrás</a>
         </div>
     </div>
-</div>
-
             <?php
                 if(isset($_GET['prenda'])){
                 $prenda = preg_split('/[\d]{1,}p/', $_GET['prenda']);
@@ -80,30 +104,32 @@
                     
                     $sala = SalasDAO::getSala($_GET['sala'], $_SESSION['id_mov']);
                     
-                    SalasDAO::addSala($sala, $prenda, $_SESSION['id_mov']);
+                    //verifico que lo que lo que se quiera agregar no sobrepase lo que hay en el deposito
+                    if(PrendaDAO::isOutboundPrendaDeposito($prenda)){
+                        echo "<a style='color: red;'>Error! cantidad de prendas a agregar invalida</a>";  
+                    }
+                    else{
+                        SalasDAO::addSala($sala, $prenda, $_SESSION['id_mov']);
+                    }
                 }
                     
                 foreach($salaI as $aux){
             ?>
-    <div class="container">
         <form id="cargarRopaSucia" action="CargarRopaSucia.php" method="get">
             <?php
-                echo "<div class='container'><table class='table table-sm table-striped table-bordered table-hover table-primary' border='1px'><thead class='thead-light'><tr><th colspan='4'>".$aux->getM_descripcion()."</th></tr>";
+                echo "<table class='table table-sm table-striped table-bordered table-hover table-primary' border='1px'><thead class='thead-light'><tr><th colspan='4'>".$aux->getM_descripcion()."</th></tr>";
                 $aux = SalasDAO::getSala($aux->getM_id(), $_SESSION['id_mov']);
                 if($aux->getM_prendas() != null){
                     foreach ($aux->getM_prendas() as $prenda){
                      echo "<tr><td><img src='".$prenda->getM_icono()."' style='width: 80px'></td><td ><h3>".$prenda->getM_descripcion()."</h3></td><td><h3>".$prenda->getM_cantidad()."</h3></td><td><button id='borrar' class='btn btn-warning btn-sm btn-block' name='prenda' type='submit' value='".$aux->getM_id()."p".$prenda->getM_codigo()."'>Borrar</button></tr>";
                     }
                 }
-                echo "</table></div>";
+                echo "</table>";
             ?>
         </form>
-        </div>
-    </div>
     <?php
                 }
-    ?>
-    <div class="container">        
+    ?>    
         <?php
             echo "<table id='tablaTotal' class='table table-sm table-striped table-bordered table-hover table-primary' border='1px'><thead class='thead-light'><tr class='info'><th colspan='3'>Total</th></tr>";
             $total = 0;
@@ -118,12 +144,9 @@
             $_SESSION['total'] = $total;
              echo "</table>";
         ?>
-    </div>
-    <div class="container">
         <form action="ProcesarRopaSucia.php" method="POST">
             <input id="procesar" class="btn btn-success btn-lg" type="submit" value="Procesar">
         </form>
-    </div>
     <?php
             }
         }
