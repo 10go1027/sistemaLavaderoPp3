@@ -11,63 +11,88 @@
                         $_SESSION['id_mov'] = hash("md5", (rand(-9999999999999999, 9999999999999999)));
                     }
 ?>
-    <div class="modal-body">
+<table class="table table-sm table-primary">
+    <thead>
+<div class="modal-body">
+    <tr scope="col">
     <div class="col-sm-12 main-sections">
         <div class="modal-contents">
-           
-	<h3>Sistema de carga de ropa sucia:</h3>
-    <form class="form-horizontal" action="CargarRopaSucia.php" method="get">
-        <div class="form-group ">
-            <label for="Salas" class="control-label col-md-12">Salas</label>
-            <div class="col-sm-8">
-                <select id="sala" class="form-control" name="sala">
+            <h5>Cargar ropa sucia:</h5></tr>
+            </thead>
+            <tbody>
+                <tr>
+            <form class="form-horizontal" action="CargarRopaSucia.php" method="get">
+               <th scope="row">
+                <div class="form-group ">
+                    <label for="Salas" class="control-label col-sm-12">Salas</label></th>
+                    <td>
+                    <div class="col-sm-8">
+                        <select id="sala" class="form-control" name="sala">
 
-                    <?php
-                        $salaI = SalasDAO::getAllSalas();
-                        foreach ($salaI as $aux){
-                            echo "<option value='".$aux->getM_id()."' ".(isset($_GET['sala']) && $_GET['sala'] == $aux->getM_id()?"selected":"").">".$aux->getM_Descripcion()."</option>";
-                        }
-                    ?>
-                </select>
-            </div>
+                            <?php
+                                $salaI = SalasDAO::getAllSalas();
+                                 foreach ($salaI as $aux){
+                                echo "<option value='".$aux->getM_id()."' ".(isset($_GET['sala']) && $_GET['sala'] == $aux->getM_id()?"selected":"").">".$aux->getM_Descripcion()."</option>";
+                                }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                </td>
+                </tr>
+                <tr>
+                <th scope="row">
+                <div class="form-group">
+                    <label for="Tipo de prenda" class="control-label col-sm-6">Tipo de prenda</label></th>
+                    <td>
+                    <div class="col-sm-5">
+                        <select id="tipoprenda" class="form-control" name="tipoprenda">
+                            <?php
+                                 $tipoprendas = PrendaDAO::getHTMLAllPrendas();
+                                foreach ($tipoprendas as $prenda){
+                                echo "<option value='$prenda[0]'>".$prenda[0]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </div>
+                    </td>
+                 </div>
+                 </tr>
+                 <tr>
+                     <th scope="row">
+                <div class="form-group">
+                    <label for="Cantidad" class="control-label col-sm-2">Cantidad</label></th>
+                    <td>
+                    <div class="col-sm-2">
+                        <input id="cantidad" class="form-control" type="number" min="0" value="0" name="cantidad">
+                    </div>
+                    </td>
+                </div>
+                </tr>
+                <tr>
+                    <th scope="row">
+                <div class="col-sm-2 col.sm.offset-2">
+                    <input id="agregar" class="btn btn-primary btn-lg" type="submit" value="Agregar">
+                </div>
+                <td></td></td>
+                </th>
+                </tr>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="Tipo de prenda" class="control-label col-md-3">Tipo de prenda</label>
-            <div class="col-md-5">
-                <select id="tipoprenda" class="form-control" name="tipoprenda">
-                    <?php
-                        $tipoprendas = PrendaDAO::getHTMLAllPrendas();
-                        foreach ($tipoprendas as $prenda){
-                        echo "<option value='$prenda[0]'>".$prenda[0]."</option>";
-                        }
-                    ?>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="Cantidad" class="control-label col-md-2">Cantidad</label>
-            <div class="col-md-2">
-                 <input id="cantidad" class="form-control" type="number" min="0" value="0" name="cantidad">
-            </div>
-        </div>
-
-        <div class="col-md-2 col.md.offset-2">
-            <input id="agregar" class="btn btn-primary btn-lg" type="submit" value="Agregar">
-        </div>
-    </form>
-    </div>
     </div>
 </div>
+</tbody>
+</table>
     <div class="form-group">
         <div class="col-md-2 col.md.offset-2">
-            <a href="index.php"><h4>Atrás</h4></a>
+            <a href="index.php"><h5>Atrás</h5></a>
         </div>
     </div>
     <p>
-    <div class="col-md-8 col.sm.offset-8">
+    <div class="col-sm-6 col.sm.offset-6">
     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Mostrar unidades Cargadas</button>
     </div>
-     <div class="col-md-8 col.sm.offset-8">
+     <div class="col-sm-6 col.sm.offset-6">
      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Mostrar prendas totales</button>
     </div>
   

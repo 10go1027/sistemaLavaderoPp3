@@ -20,7 +20,7 @@ body {
 }
 
 .modal-content {
-    background-color: #8bbff7;
+    background-color: #7db7f5;
     opacity: .85;
     padding: 0 20px;
     box-shadow: 0px 0px 3px #7099e6;
@@ -33,7 +33,7 @@ body {
 }
 
 .modal-contents {
-    background-color: #8bbff7;
+    background-color: #7db7f5;
     opacity: .85;
     padding: 5 5px;
     box-shadow: 0px 0px 3px #7099e6;
@@ -85,9 +85,5 @@ button {
 }
 
 .forgot a {
-    color: white;
-}
-
-.number {
     color: white;
 }

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-light" style="background-color: #7db7f5;">
   <a class="navbar-brand" href="index.php">
   <?php
   echo "Bienvenido! ".$usuDTOLogin->getM_nombre()." Al sistema";
