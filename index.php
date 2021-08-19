@@ -25,21 +25,6 @@
         </div>
     </div>
 </div>
-<!--
-<form action="Formulario.php" method="post">
-<img src="imagenes/logo.jpeg" id="imagen_inicio">
-<table id="inicio">
-    <tr>
-        <td>Usuario</td><td><input type="text" name="ficha"></td>
-    </tr>
-    <tr>
-         <td>Contraseña</td><td><input type="password" name="contrasenia"><input type="submit" value="Ingresar"></td>
-    </tr>
-    <tr>
-        <td><a href="https://www.sistemalavaderopp3.ml">¿Olvidaste la contraseña?</a></td>
-    </tr>
-</table>
-</form> -->
 <?php
     }
     else{
@@ -47,60 +32,42 @@
         if($usuDTOLogin->getM_rol()->count() > 0){
             foreach ($usuDTOLogin->getM_rol() as $rol){
                 if($rol->getM_id() == 2){
-?>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light ">
-  <a class="navbar-brand" href="#">
-  <?php
-  echo "Bienvenido! ".$usuDTOLogin->getM_nombre()." Al sistema";
-  ?>
+                    include_once ("Barra.php");
+                    ?>
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="imagenes/ib2-1.jpg" alt="First slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="imagenes/R1.jpg" alt="Second slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="imagenes/alvarez_2_11.jpg" alt="Third slide">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="index.php">Inicio</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="CargarRopaSucia.php">Cargar ropa sucia</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="AdministrarDeposito.php">Administrar deposito</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="CrearPrenda.php">Crear nuevo tipo prenda</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="cerrar.php">Cerrar sesion</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-<div class="container-fluid">
- <div class="modal-dialog text-center">
- <div class="row">
-  <div class="col-md-3">
-   <img src="imagenes/S.G.S.R.H.gif" class="img-responsive">
-  </div>
- </div>
- </div>
-
-<?php
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+                    <?php
                     echo "<br>Todos los paquetes hechos:";
                     $array = MovimientoDAO::getMovimientos("*");
                     foreach ($array as $movimientos){
                         echo "<br><a href='EditarPaquete.php?id=".$movimientos->getId()."'>".$movimientos."</a>";
                     }
+                    ?>
+                    </div>
+                    <?php
                 }
             }
         }
 ?>
- 
- 
-</div>
 <?php
     }
     include_once("html/Footer.php");
