@@ -27,7 +27,7 @@
                     <label for="Salas" class="control-label col-sm-12">Salas</label></th>
                     <td>
                     <div class="col-sm-8">
-                        <select id="sala" class="form-control" name="sala">
+                        <select id="sala" class="form-select form-select-sm" name="sala" >
 
                             <?php
                                 $salaI = SalasDAO::getAllSalas();
@@ -46,7 +46,7 @@
                     <label for="Tipo de prenda" class="control-label col-sm-6">Tipo de prenda</label></th>
                     <td>
                     <div class="col-sm-5">
-                        <select id="tipoprenda" class="form-control" name="tipoprenda">
+                        <select id="tipoprenda" class="form-select form-select-sm" name="tipoprenda">
                             <?php
                                  $tipoprendas = PrendaDAO::getHTMLAllPrendas();
                                 foreach ($tipoprendas as $prenda){
@@ -64,7 +64,7 @@
                     <label for="Cantidad" class="control-label col-sm-2">Cantidad</label></th>
                     <td>
                     <div class="col-sm-2">
-                        <input id="cantidad" class="form-control" type="number" min="0" value="0" name="cantidad">
+                        <input id="cantidad" class="form-select form-select-sm" type="number" min="0" value="0" name="cantidad">
                     </div>
                     </td>
                 </div>
@@ -72,7 +72,7 @@
                 <tr>
                     <th scope="row">
                 <div class="col-sm-2 col.sm.offset-2">
-                    <input id="agregar" class="btn btn-primary btn-lg" type="submit" value="Agregar">
+                    <input id="agregar" class="btn btn-primary btn-sm" type="submit" value="Agregar">
                 </div>
                 <td></td></td>
                 </th>
@@ -85,15 +85,14 @@
 </table>
     <div class="form-group">
         <div class="col-md-2 col.md.offset-2">
-            <a href="index.php"><h5>Atrás</h5></a>
+        <a href="index.php" class="link-secondary">Atrás</a>
         </div>
     </div>
     <p>
-    <div class="col-sm-6 col.sm.offset-6">
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Mostrar unidades Cargadas</button>
-    </div>
-     <div class="col-sm-6 col.sm.offset-6">
-     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Mostrar prendas totales</button>
+    <div class="d-grid gap-2 col-6 mx-auto">
+    <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Mostrar salas cargadas</button>
+    
+     <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Mostrar prendas totales</button>
     </div>
   
 </p>

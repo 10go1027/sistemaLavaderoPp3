@@ -6,79 +6,66 @@
         $usuDTOLogin = $_SESSION['usuario'];
         foreach ($usuDTOLogin->getM_rol() as $rol){
             if($rol->getM_id() == 2){
+                include_once("Barra.php");
 ?>
-<nav class="navbar navbar-expand-lg navbar-light bg-light ">
-  <a class="navbar-brand" href="#">
-  <?php
-  echo "Bienvenido! ".$usuDTOLogin->getM_nombre()." Al sistema";
-  ?>
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="index.php">Inicio</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="CargarRopaSucia.php">Cargar ropa sucia</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="AdministrarDeposito.php">Administrar deposito</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="CrearPrenda.php">Crear nuevo tipo prenda</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="cerrar.php">Cerrar sesion</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-<div class="container">
- <div class="form-group ">
-  <label for="Salas" class="control-label col-md-7"><h3>Crear nuevo tipo de prenda:</h3></label>
- </div>
-</div>
-<div class="container">
-    <form class="form-horizontal" action="CrearPrenda.php" method="POST" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="Salas" class="control-label col-md-3">Nombre de la prenda:</label>
-            <div class="col-md-5">
-                <input name="nombre"></input>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-2" for="Salas">Imagen:</label>
-            <div class="col-md-2">
-                <input  class="btn btn-success btn-lg" type="file" name="imagen">
-            </div>
-        </div>
-        <div class="form-group ">
-            <label for="Salas" class="control-label col-md-2">Codigo:</label>
-            <div class="col-md-2 col.md.offset-2">
-                <input type="number" name="codigo" min="1">
-            </div>
-        </div>
-            <div class="col-md-2 col.md.offset-2">
-                <input class="btn btn-primary btn-lg" type="submit" name="submit" value="Agregar">
-            </div>
-        </div>
-        
-    </form>
-</div>
-    <div class="container">
-     <div class="form-group">
-      <div class="col-md-2 col.md.offset-2">
-       <a href="index.php">Atrás</a>
+    <thead>
+<div class="modal-body">
+    <tr scope="col">
+    <div class="col-sm-8 main-sections rounder">
+        <div class="modal-contents">
+<h3 class="fw-bold text-align py-1">Crear nuevo tipo de prenda:</h3>
+<form action="CrearPrenda.php" method="POST" enctype="multipart/form-data">
+    <div class="col-sm-12 " >
+    
+          <label for="text" class="form-label">Nombre de la prenda:</label>
+    
+         <input  class="form-control" name="nombre"></input>
     </div>
-   </div>
-  </div>
+    
+    <div class="col-sm-12 ">
+    
+          <label for="text" class="form-label">Imagen:</label>
+    
+    <input type="file"  class="form-control" name="imagen">
+    
+    </div>
+    <div class="col-sm-8 ">
+    
+          <label for="text" class="form-label">Codigo:</label>
+    
+    <input type="number" class="form-control" name="codigo" min="1">
+    
+    </div>
+    <br>
+    <div class="input-group">
+        <input type="submit" class="btn btn-primary btn-sm" name="submit" value="Agregar">
+    </div>
+</form>
+        </div>
+    </div>
+    </tr>
+</div>
+    </thead>
+</table>
 
+<a href="index.php">Atrás</a>
+<h3>Eliminar prendas:</h3>
+<form  id='eliminarPrendas'action="CrearPrenda.php" method="GET">
+<table>
 <?php
+                $tipoprendas = PrendaDAO::getHTMLAllPrendas();
+                foreach ($tipoprendas as $prenda){
+                    $preda_aux = PrendaDAO::getPrenda($prenda[0]);
+                    echo "<tr><td><img src='".$preda_aux->getM_icono()."' style='width: 25px'>".$preda_aux->getM_descripcion()."</td><td><button id='borrar' class='btn btn-warning btn-sm btn-block' name='prenda' type='submit' value='".$preda_aux->getM_descripcion()."'>Eliminar</button></td></tr>";
+                }
+?>
+</table>
+</form>
+<?php
+                if(isset($_GET['prenda'])){
+                    PrendaDAO::bajaPrenda($_GET['prenda']);
+                    echo "<meta http-equiv=\"refresh\" content=\"0;url=https://www.sistemalavaderopp3.ml/CrearPrenda.php\"/>";
+                }
                 if(isset($_POST['submit']) && isset($_POST['codigo']))
                 {
                     if(isset($_POST['nombre']) && strlen($_POST['nombre']) > 2){
