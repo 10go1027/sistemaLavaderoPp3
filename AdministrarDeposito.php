@@ -20,7 +20,7 @@
 <div class="form-group ">
 <label for="Salas" class="control-label col-md-2">Tipo de prenda</label>
 <div class="col-md-5">
-<select id="tipoprenda" class="form-control" name="tipoprenda">
+<select id="tipoprenda" class="form-select form-select-sm" name="tipoprenda">
 
 		<?php
 			$tipoprendas = PrendaDAO::getHTMLAllPrendas();
@@ -36,9 +36,9 @@
 <div class="col-md-2">
 <input id="cantidad" class="form-control" type="number" min="0" name="cantidad" value="0">
 </div>
-</div>
+<br>
 <div class="col-md-2 col.md.offset-2">
-<input id="agregar" class="btn btn-primary btn-lg" type="submit" value="Agregar">
+<input id="agregar" class="btn btn-primary btn-sm" type="submit" value="Agregar">
 </div>
 
 </form>

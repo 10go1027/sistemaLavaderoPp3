@@ -8,13 +8,46 @@
             if($rol->getM_id() == 2){
                 include_once("Barra.php");
 ?>
-<h3>Crear nuevo tipo de prenda:</h3>
+    <thead>
+<div class="modal-body">
+    <tr scope="col">
+    <div class="col-sm-8 main-sections rounder">
+        <div class="modal-contents">
+<h3 class="fw-bold text-align py-1">Crear nuevo tipo de prenda:</h3>
 <form action="CrearPrenda.php" method="POST" enctype="multipart/form-data">
-    Nombre de la prenda: <input name="nombre"></input><br>
-    Imagen: <input type="file" name="imagen"><br>
-    Codigo: <input type="number" name="codigo" min="1">
-    <input type="submit" name="submit" value="Agregar">
+    <div class="col-sm-12 " >
+    
+          <label for="text" class="form-label">Nombre de la prenda:</label>
+    
+         <input  class="form-control" name="nombre"></input>
+    </div>
+    
+    <div class="col-sm-12 ">
+    
+          <label for="text" class="form-label">Imagen:</label>
+    
+    <input type="file"  class="form-control" name="imagen">
+    
+    </div>
+    <div class="col-sm-8 ">
+    
+          <label for="text" class="form-label">Codigo:</label>
+    
+    <input type="number" class="form-control" name="codigo" min="1">
+    
+    </div>
+    <br>
+    <div class="input-group">
+        <input type="submit" class="btn btn-primary btn-sm" name="submit" value="Agregar">
+    </div>
 </form>
+        </div>
+    </div>
+    </tr>
+</div>
+    </thead>
+</table>
+
 <a href="index.php">Atrás</a>
 <h3>Eliminar prendas:</h3>
 <form  id='eliminarPrendas'action="CrearPrenda.php" method="GET">
