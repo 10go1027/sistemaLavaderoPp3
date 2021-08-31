@@ -11,7 +11,7 @@
 
     <div class="col bg-white p-5 rounded-end">
       <div class="text-end">
-        <img src="imagenes/logoLavaderoI_v3.png"  width="48" alt="">
+        <img src="imagenes/sistema (3).png"  width="48" alt="" >
       </div>
     <h2 class="fw-bold text-center py-5">Bienvenido</h2>
 

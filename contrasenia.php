@@ -10,14 +10,14 @@
 
   <div class="col bg-white p-5 rounded-end">
     <div class="text-end">
-      <img src="imagenes/logoLavaderoI_v3.png"  width="48" alt="">
+      <img src="imagenes/sistema (3).png"  width="48" alt="">
     </div>
   <h2 class="fw-bold text-center py-5">Bienvenido</h2>
 
   <form action="contrasenia.php" method="post">
                     <div class="form-floating mb-3">
                     <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                    <label for="floatingInput">Email address</label>
+                    <label for="floatingInput">Ingresar Email</label>
                         
                     </div>
                     <div class="d-grid">
