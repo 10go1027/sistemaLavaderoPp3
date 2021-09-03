@@ -1,74 +1,110 @@
 <?php
-    include_once("html/Header.php");
-    
-    session_start();
-    if(isset($_SESSION['usuario'])){
-        $usuDTOLogin = $_SESSION['usuario'];
-        foreach ($usuDTOLogin->getM_rol() as $rol){
-            if($rol->getM_id() == 2){
-                include_once ("Barra.php");
+include_once("html/Header.php");
+
+session_start();
+if (isset($_SESSION['usuario'])) {
+    $usuDTOLogin = $_SESSION['usuario'];
+    foreach ($usuDTOLogin->getM_rol() as $rol) {
+        if ($rol->getM_id() == 2) {
+            include_once("Barra.php");
 ?>
 <div class="modal-body">
-    <div class="col-sm-12 main-sections">
+    <div class="col-sm-10 main-sections">
         <div class="modal-contents">
-<div class="container">
- <div class="form-group">
-  <label for="Salas" class="control-label col-md-7"><h3>Sistema de Administracion del deposito:</h3></label>
- </div>
-</div>
-<form class="form-horizontal" action="AdministrarDeposito.php" method="GET">
-<div class="form-group ">
-<label for="Salas" class="control-label col-md-2">Tipo de prenda</label>
-<div class="col-md-5">
-<select id="tipoprenda" class="form-select form-select-sm" name="tipoprenda">
+        <h4>Administrar deposito:</h4>
+<table class="table table-sm table-secondary"> 
+    <thead>
+    <tr>
+        <form class="form-horizontal" action="AdministrarDeposito.php" method="GET">
+        <td>
+            <label for="Salas" class=" col-sm-10">Prenda:</label>
+        </td>
+        <td>
+            <label for="Salas" class=" col-sm-10">Cantidad:</label>
+        </td>
+       
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>
+                <div class="col-sm-10">
+                <select id="tipoprenda" class="form-select form-select-sm" name="tipoprenda">
 
-		<?php
-			$tipoprendas = PrendaDAO::getHTMLAllPrendas();
-			foreach ($tipoprendas as $prenda){
-				echo "<option value='$prenda[0]'>".$prenda[0]."</option>";
-			}
-		?>
+		    <?php
+            $tipoprendas = PrendaDAO::getHTMLAllPrendas();
+            foreach ($tipoprendas as $prenda) {
+                echo "<option value='$prenda[0]'>" . $prenda[0] . "</option>";
+            }
+?>
 </select>
-</div>
-</div>
-<div class="form-group ">
-<label for="Salas" class="control-label col-md-2">Cantidad</label>
-<div class="col-md-2">
-<input id="cantidad" class="form-control" type="number" min="0" name="cantidad" value="0">
-</div>
-<br>
-<div class="col-md-2 col.md.offset-2">
-<input id="agregar" class="btn btn-primary btn-sm" type="submit" value="Agregar">
-</div>
-
+        </div>
+    </th>
+            <th>
+            <div class="col-sm-12">
+                <input id="cantidad" class="form-select-sm"type="number" name="cantidad" value="0">
+            </div>
+            </th>
+            
+        </tr>
+        <tr>
+            <th>
+            <div class="d-grid">
+                    <a href="index.php" class="btn btn-secondary btn-sm">Atrás</a>
+                </div>
+            </th>
+            <th>
+                <div class="d-grid">
+                    <input id="agregar" class="btn btn-primary btn-sm" type="submit" value="Agregar">
+                </div>
+            </th>
+        </tr>
+    </tbody>
 </form>
-</div>
+
+</table>
+
+
+
+        </div>
     </div>
 </div>
-<div class="form-group">
-<div class="col-md-2 col.md.offset-2">
-<a href="index.php">Atrás</a>
-</div>
-</div>
+<div class="modal-body">
+    <div class="col-sm-10 main-sections">
+        <div class="modal-contents">
 <?php
-                if(isset($_GET['tipoprenda']) && isset($_GET['cantidad'])){
-                    $prenda = PrendaDAO::getPrenda($_GET['tipoprenda']);
-                    $prenda->setM_cantidad($_GET['cantidad']);
-                    
-                    PrendaDAO::addPrendaDeposito($prenda);
-                }
-?>
-<table border='1px'>
-<?php
-                $auxMapa = PrendaDAO::getPrendaDeposito();
-                foreach($auxMapa->keys() as $auxp){
-                    echo "<tr><td><img src='".$auxp->getM_icono()."' style='width: 25px'>".$auxp->getM_descripcion()."</td><td>".$auxp->getM_cantidad()."</td></tr>";
-                }
-?>
-</table>
-<?php
+            if (isset($_GET['tipoprenda']) && isset($_GET['cantidad'])) {
+                $prenda = PrendaDAO::getPrenda($_GET['tipoprenda']);
+                $prenda->setM_cantidad($_GET['cantidad']);
+
+                PrendaDAO::addPrendaDeposito($prenda);
             }
+?>
+
+<table class="table table-sm table-primary ">
+    <thead>
+        <tr>Deposito</tr>
+    <tr>
+        <td>Prendas</td><td>Cantidad</td>
+    </tr>
+    </thead>
+    <tbody>
+<?php
+            $auxMapa = PrendaDAO::getPrendaDeposito();
+            foreach ($auxMapa->keys() as $auxp) {
+                echo "<tr><td><img src='" . $auxp->getM_icono() . "' style='width: 25px'>" . $auxp->getM_descripcion() . "</td><td>" . $auxp->getM_cantidad() . "</td></tr>";
+            }
+?>
+    </tbody>
+</table>
+
+
+<?php
         }
     }
-    include_once("html/Footer.php");
+}
+include_once("html/Footer.php");
 ?>
+        </div>
+    </div>
+</div>

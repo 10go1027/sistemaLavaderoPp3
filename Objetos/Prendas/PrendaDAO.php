@@ -41,8 +41,8 @@ class PrendaDAO{
     public function getPrendaDeposito(){
         $con = new Conexion();
         //$sqlQury = "SELECT * FROM `deposito`";
-        $sqlQury = "SELECT d.*, p.descripcion FROM deposito as d join prenda as p on d.id_prenda = p.codigo ";
-        $resultado = $con->getConnection()->query($sqlQury);
+        $sqlQuery = "SELECT d.*, p.descripcion FROM deposito as d join prenda as p on d.id_prenda = p.codigo ";
+        $resultado = $con->getConnection()->query($sqlQuery);
         /*
          * OBJETO PRENDA | ESTADO
          * 

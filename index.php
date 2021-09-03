@@ -1,8 +1,8 @@
 <?php
-    include_once("html/Header.php");
+include_once("html/Header.php");
 
-    session_start();
-    if(!isset($_SESSION['usuario'])){
+session_start();
+if (!isset($_SESSION['usuario'])) {
 ?>
 <div class="container w-75 bg-Info mt-5 rounded shadow">
   <div class="row align-items-stretch"> 
@@ -17,7 +17,7 @@
 
     <form action="Formulario.php" method="post">
         <div class="mb-4">
-          <label for="text" class="form-label">Ingrese Ficha</label>
+          <label for="text" class="form-label" >Ingrese Ficha Municipal</label>
           <input type="text" class="form-control" name="ficha">
         </div>
         <div class="mb-4">
@@ -62,14 +62,14 @@
     -->
     
 <?php
-    }
-    else{
-        $usuDTOLogin = $_SESSION['usuario'];
-        if($usuDTOLogin->getM_rol()->count() > 0){
-            foreach ($usuDTOLogin->getM_rol() as $rol){
-                if($rol->getM_id() == 2){
-                    include_once ("Barra.php");
-                    ?>
+}
+else {
+  $usuDTOLogin = $_SESSION['usuario'];
+  if ($usuDTOLogin->getM_rol()->count() > 0) {
+    foreach ($usuDTOLogin->getM_rol() as $rol) {
+      if ($rol->getM_id() == 2) {
+        include_once("Barra.php");
+?>
                     <br>
                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
@@ -94,19 +94,19 @@
 </div>
                 
                     <?php
-                    echo "<br>Todos los paquetes hechos:";
-                    $array = MovimientoDAO::getMovimientos("*");
-                    foreach ($array as $movimientos){
-                        echo "<br><a href='EditarPaquete.php?id=".$movimientos->getId()."'>".$movimientos."</a>";
-                    }
-                    ?>
-                    </div>
-                    <?php
-                }
-            }
+        echo "<br>Todos los paquetes hechos:";
+        $array = MovimientoDAO::getMovimientos("*");
+        foreach ($array as $movimientos) {
+          echo "<br><a href='EditarPaquete.php?id=" . $movimientos->getId() . "'>" . $movimientos . "</a>";
         }
 ?>
-<?php
+                    </div>
+                    <?php
+      }
     }
-    include_once("html/Footer.php");
+  }
+?>
+<?php
+}
+include_once("html/Footer.php");
 ?>

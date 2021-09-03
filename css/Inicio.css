@@ -20,10 +20,10 @@ body {
 }
 
 .modal-content {
-    background-color: #7db7f5;
+    background-color: #c1dcf8;
     opacity: .85;
     padding: 0 20px;
-    box-shadow: 0px 0px 3px #7099e6;
+    box-shadow: 5px 5px 5px #a7bfeb;
 }
 
 .main-sections {
@@ -33,10 +33,10 @@ body {
 }
 
 .modal-contents {
-    background-color: #7db7f5;
+    background-color: #a5c8ee;
     opacity: .85;
-    padding: 5 5px;
-    box-shadow: 0px 0px 3px #7099e6;
+    padding: 1 1px;
+    box-shadow: 1px 1px 1px #797c81;
 }
 
 .user-img {
