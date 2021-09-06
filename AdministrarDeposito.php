@@ -31,8 +31,8 @@ if (isset($_SESSION['usuario'])) {
                 <div class="col-sm-10">
                 <select id="tipoprenda" class="form-select form-select-sm" name="tipoprenda">
 
-		    <?php
-            $tipoprendas = PrendaDAO::getHTMLAllPrendas();
+		<?php
+            $tipoprendas = PrendaDAO::getHTMLAllPrendas(1);
             foreach ($tipoprendas as $prenda) {
                 echo "<option value='$prenda[0]'>" . $prenda[0] . "</option>";
             }
@@ -63,10 +63,7 @@ if (isset($_SESSION['usuario'])) {
 </form>
 
 </table>
-
-
-
-        </div>
+</div>
     </div>
 </div>
 <div class="modal-body">
@@ -80,31 +77,32 @@ if (isset($_SESSION['usuario'])) {
                 PrendaDAO::addPrendaDeposito($prenda);
             }
 ?>
-
 <table class="table table-sm table-primary ">
-    <thead>
+<thead>
         <tr>Deposito</tr>
     <tr>
-        <td>Prendas</td><td>Cantidad</td>
+        <td>Prendas</td><td>CantidadTotal</td><td>Limpias</td><td>Sucias enviadas</td><td>Sucias sin enviar</td>
     </tr>
     </thead>
     <tbody>
 <?php
             $auxMapa = PrendaDAO::getPrendaDeposito();
             foreach ($auxMapa->keys() as $auxp) {
-                echo "<tr><td><img src='" . $auxp->getM_icono() . "' style='width: 25px'>" . $auxp->getM_descripcion() . "</td><td>" . $auxp->getM_cantidad() . "</td></tr>";
+                echo "<tr><td><img src='" . $auxp->getM_icono() . "' style='width: 25px'>" . $auxp->getM_descripcion() . "</td><td>" . $auxp->getM_cantidad() . "</td>"
+                    . "<td>" . ($auxp->getM_cantidad() - DepositoDAO::getPrendaSucias($auxp)) . "</td>"
+                    . "<td>" . DepositoDAO::getPrendaSucias($auxp) . "</td>"
+                    . "<td>" . (DepositoDAO::getPrendasSinEnviar($auxp) == 0 ? 0 : DepositoDAO::getPrendasSinEnviar($auxp)) . "</td>"
+                    . "</tr>";
             }
 ?>
     </tbody>
 </table>
-
-
 <?php
         }
     }
 }
 include_once("html/Footer.php");
 ?>
-        </div>
+      </div>
     </div>
 </div>

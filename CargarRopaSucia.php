@@ -7,8 +7,13 @@ if (isset($_SESSION['usuario'])) {
     foreach ($usuDTOLogin->getM_rol() as $rol) {
         if ($rol->getM_id() == 2) {
             include_once("Barra.php");
-            if (!isset($_SESSION['id_mov'])) {
+            //if(!isset($_SESSION['id_mov'])){
+            if (SalasDAO::getUsuarioPrendaSalas($usuDTOLogin) == null) {
                 $_SESSION['id_mov'] = hash("md5", (rand(-9999999999999999, 9999999999999999)));
+                SalasDAO::addUsuarioPrendaSalas($usuDTOLogin, $_SESSION['id_mov']);
+            }
+            else {
+                $_SESSION['id_mov'] = SalasDAO::getUsuarioPrendaSalas($usuDTOLogin);
             }
 ?>
 <br>
@@ -40,27 +45,26 @@ if (isset($_SESSION['usuario'])) {
             <td>
                 <div class="col-sm-12">
                     <select id="sala" class="form-select form-select-sm" name="sala" >
-
-                        <?php
+                    <?php
             $salaI = SalasDAO::getAllSalas();
             foreach ($salaI as $aux) {
                 echo "<option value='" . $aux->getM_id() . "' " . (isset($_GET['sala']) && $_GET['sala'] == $aux->getM_id() ? "selected" : "") . ">" . $aux->getM_Descripcion() . "</option>";
             }
 ?>
-                    </select>
+               </select>
                 </div>
             </td>
        
         <td>
                     <div class="col-sm-12">
                         <select id="tipoprenda" class="form-select form-select-sm" name="tipoprenda">
-                            <?php
-            $tipoprendas = PrendaDAO::getHTMLAllPrendas();
+                    <?php
+            $tipoprendas = PrendaDAO::getHTMLAllPrendas(1);
             foreach ($tipoprendas as $prenda) {
                 echo "<option value='$prenda[0]'>" . $prenda[0] . "</option>";
             }
 ?>
-                        </select>
+  </select>
                     </div>
         </td>
         <td>
@@ -93,14 +97,10 @@ if (isset($_SESSION['usuario'])) {
 </div>
 
 <br>
-
-
-    
 <div class="modal-body">
     <div class="col-sm-10 main-sections">
         <div class="modal-contents">
-
-      <?php
+            <?php
             if (isset($_GET['prenda'])) {
                 $prenda = preg_split('/[\d]{1,}p/', $_GET['prenda']);
                 $sala = preg_split('/p[\d]{1,}/', $_GET['prenda']);
@@ -128,6 +128,11 @@ if (isset($_SESSION['usuario'])) {
             foreach ($salaI as $aux) {
 ?>
         <form id="cargarRopaSucia" action="CargarRopaSucia.php" method="get">
+            
+            
+            
+            
+            
             <?php
                 echo "<table class='table table-sm table-striped table-bordered table-hover table-primary' border='1px'><thead class='thead-light'><th colspan='4'>" . $aux->getM_descripcion() . "</th></tr><tr><td>Imagen</td><td>Prenda</td><td>Cantidad</td><td></td></tr>";
                 $aux = SalasDAO::getSala($aux->getM_id(), $_SESSION['id_mov']);
@@ -141,17 +146,17 @@ if (isset($_SESSION['usuario'])) {
         </form>
     <?php
             }
-?>  
-    <br>
-    
-      <?php
+?>    
+
+<br>
+        <?php
             echo "<table id='tablaTotal' class='table table-sm table-striped table-bordered table-hover table-primary' border='1px'><thead class='thead-light'><tr class='info'><th colspan='3'>Total</th></tr><tr><td>Imagen</td><td>Prenda</td><td>Cantidad</td></tr><tr>";
             $total = 0;
-            $allprendasstr = PrendaDAO::getHTMLAllPrendas();
+            $allprendasstr = PrendaDAO::getHTMLAllPrendas(1);
             foreach ($allprendasstr as $prendastr) {
                 $objprenda = PrendaDAO::getPrendaFromString($prendastr[0]);
                 $objprenda->setM_cantidad(PrendaDAO::getCountPrenda($objprenda->getM_codigo(), $_SESSION['id_mov']));
-                echo "<tr><td><img src='" . $objprenda->getM_icono() . "' style='width: 80px'></td><td><h4>" . $objprenda->getM_descripcion() . "</h4></td><td><h4>" . $objprenda->getM_cantidad() . "</h4></td></tr>";
+                echo "<tr><td><img src='" . $objprenda->getM_icono() . "' style='width: 80px'></td><td><h3>" . $objprenda->getM_descripcion() . "</h3></td><td><h3>" . $objprenda->getM_cantidad() . "</h3></td></tr>";
 
                 $total += $objprenda->getM_cantidad();
             }
@@ -159,15 +164,11 @@ if (isset($_SESSION['usuario'])) {
             echo "</table>";
 ?>
         <form action="ProcesarRopaSucia.php" method="POST">
-            <div class="d-grid">
+        <div class="d-grid">
             <input id="procesar" class="btn btn-success btn-lg" type="submit" value="Procesar">
         </div>
         </form>
-    
-
-              
- 
- 
+</div>
     <?php
         }
     }
@@ -177,4 +178,3 @@ include_once("html/Footer.php");
         </div>
     </div>
 </div>
-

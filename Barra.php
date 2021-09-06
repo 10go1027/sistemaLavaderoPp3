@@ -14,8 +14,8 @@ echo "Bienvenido! " . $usuDTOLogin->getM_nombre() . " Al S.G.S.R.H";
           Administrar
         </a>
         <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Usuarios</a></li>
           <li><a class="dropdown-item" href="CrearPrenda.php">Ropa hopitalaria</a></li>
+          <li><a class="dropdown-item" href="CrearPrenda.php">Administrar usuarios</a></li>
         </ul>
       </li>
       <li class="nav-item dropdown">

@@ -7,8 +7,11 @@ include_once("html/Header.php");
         foreach ($usuDTOLogin->getM_rol() as $rol){
             if($rol->getM_id() == 2){
                 include_once("Barra.php");
+                ?>
+<div class="container-fluid modal-content">
+<?php
                 //var_dump($_POST);
-                $prendas = PrendaDAO::getHTMLAllPrendas();
+                $prendas = PrendaDAO::getHTMLAllPrendas(1);
 
                 $mapa = new Ds\Map();
 
@@ -38,12 +41,19 @@ include_once("html/Header.php");
                 }
                 $_SESSION['mapa'] = $mapa;
 ?>
+<form target="_blank" action="remito.php" method="POST">
+    <input type="submit" value="Remito" name="procesar">
+    <input name="id" value="<?php
+    echo $_POST['id'];
+    ?>" hidden>
+</form>
 <form action="ModificarDeposito.php" method="POST">
     <input type="submit" value="Procesar" name="procesar">
     <input name="id" value="<?php
     echo $_POST['id'];
     ?>" hidden>
 </form>
+</div>
 <?php
             }
         }

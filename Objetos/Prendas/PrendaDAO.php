@@ -41,8 +41,8 @@ class PrendaDAO{
     public function getPrendaDeposito(){
         $con = new Conexion();
         //$sqlQury = "SELECT * FROM `deposito`";
-        $sqlQuery = "SELECT d.*, p.descripcion FROM deposito as d join prenda as p on d.id_prenda = p.codigo ";
-        $resultado = $con->getConnection()->query($sqlQuery);
+        $sqlQury = "SELECT d.*, p.descripcion FROM deposito as d join prenda as p on d.id_prenda = p.codigo ";
+        $resultado = $con->getConnection()->query($sqlQury);
         /*
          * OBJETO PRENDA | ESTADO
          * 
@@ -109,8 +109,10 @@ class PrendaDAO{
                 $aux = $auxp;
             }
         }
-        if($aux != null){
+        /*if($aux != null){
+            //saco la formula actual
             $total = (PrendaDAO::getCountPrenda($prenda->getM_codigo(), $movimiento)+$prenda->getM_cantidad())*2 + $cantidadSucia;
+            
             //echo "<br>=============<br>cantidad todavia sin ingresar: ".$total."<br>cantidad a agregar: ". $prenda->getM_cantidad()."(".($prenda->getM_cantidad()*2).")<br>cantidad de prendas sucias(".$prenda->getM_descripcion()."): ".$cantidadSucia."<br>deposito(".$aux->getM_descripcion()."): ".$aux->getM_cantidad();
             if($total > $aux->getM_cantidad()){
                 return true;
@@ -119,10 +121,14 @@ class PrendaDAO{
         }
         else{
             return true;
+        }*/
+        if($aux == null){
+            return true;
         }
+        return false;
     }
     
-    public function getHTMLAllPrendas() {
+    public function getHTMLAllPrendas($b_valido) {
         
         $array = new ArrayObject();
         
@@ -132,7 +138,7 @@ class PrendaDAO{
             
             //echo $aux[0]."->ESTADO:".PrendaDAO::getPrenda($aux[0])->getM_estado()."<br>";
             
-            if(PrendaDAO::getPrenda($aux[0])->getM_estado() == 1){
+            if(PrendaDAO::getPrenda($aux[0])->getM_estado() == $b_valido){
                 $array->append($aux);
             }
         }
@@ -201,10 +207,18 @@ class PrendaDAO{
         return $auxP;
     }
     
-    public function bajaPrenda($prenda) {
+    public function ABPrenda($prenda, $estado) {
         $con = new Conexion();
-        $sqlQuery = "UPDATE prenda SET estado = 0 WHERE descripcion like '".$prenda."'";
+        $sqlQuery = "UPDATE prenda SET estado = ".$estado." WHERE descripcion like '".$prenda."'";
         $con->getConnection()->query($sqlQuery);
         return 1;
+    }
+    
+    public function fixNombrePrenda($prenda){
+        if(preg_match('/[a-zA-Z\s]{1,}/', $prenda, $prenda)){
+            $prenda = preg_replace('/\s+/', '', $prenda);
+            return $prenda[0];
+        }
+        return $prenda;
     }
 }
