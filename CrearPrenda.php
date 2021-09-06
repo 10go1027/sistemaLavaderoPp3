@@ -11,7 +11,7 @@ if (isset($_SESSION['usuario'])) {
 <div class="modal-body">
     <div class="col-sm-10 main-sections">
         <div class="modal-contents">
-    <h3>Crear nuevo tipo de prenda:</h3>
+    <h4>Crear nuevo tipo de prenda:</h4>
 <table class="table table-sm table-secondary"> 
 <thead>
 <tr>
@@ -78,7 +78,7 @@ if (isset($_SESSION['usuario'])) {
 <div class="modal-body">
     <div class="col-sm-3 main-sections ">
         <div class="modal-contents">
-<h3>Eliminar prendas:</h3>
+<h4>Eliminar prendas:</h4>
 <form  id='eliminarPrendas'action="CrearPrenda.php" method="GET">
 <table>
 <?php
