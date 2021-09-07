@@ -29,11 +29,11 @@ echo "Bienvenido! " . $usuDTOLogin->getM_nombre() . " Al S.G.S.R.H";
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-          Consultar stock
+          Consultar
         </a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Total de ropa hospitalaria</a></li>
-          <li><a class="dropdown-item" href="#">Por ropa hospitalaria</a></li>
+          <li><a class="dropdown-item" href="deposito.php">EL estado de la ropa hospitalaria</a></li>
+          <li><a class="dropdown-item" href="#">Stock Por tipo de ropa hospitalaria</a></li>
         </ul>
       </li>
       <li class="nav-item">
